@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+
+  #APP SERVER
+  laravel-docker-app:
+    container_name: laravel-docker-app
+    build: .
+    restart: always
+    volumes:
+      - ./PFE_access_card:/var/www/html
+    ports:
+      - "9009:80"
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    networks:
+      - my-network
+    depends_on:
+      - mysql_db
+    links:
+      - mysql_db
+  #DATABASE SERVER
+  mysql_db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: laraveldb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: laravelroot
+      MYSQL_PASSWORD: laravelroot
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./my.cnf:/etc/mysql/my.cnf:ro # Mount the configuration file  
+    networks:
+      - my-network
+    command: >
+      --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --skip-name-resolve
+  #PHPMYADMIN SERVER
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - "9002:80"
+    environment:
+      - PMA_ARBITRARY=1
+    networks:
+      - my-network
+    volumes:
+      - ./phpmyadmin-config:/etc/phpmyadmin # Volume mount for PHPMyAdmin configuration  
+    command: >
+      sh -c "echo 'ServerName localhost' >> /etc/apache2/apache2.conf && apache2-foreground"
+
+networks:
+  my-network:
+    driver: bridge
+
+volumes:
+  # Define the volume here
+  mysql-data:

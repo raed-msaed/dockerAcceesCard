@@ -1,0 +1,90 @@
+Running a Laravel project with Filament offline :
+
+1-Environment Configuration: Ensure you are using the correct environment settings. In .env file, set APP_ENV=local and APP_DEBUG=false for better performance.
+Cache Configurations: Run the following commands to cache configurations, routes, and views:
+
+PHP Configuration:
+
+Ensure your PHP configuration is optimized. Increase memory limit and maximum execution time in php.ini:
+memory_limit = 512M
+max_execution_time = 300
+
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan optimize
+
+Composer Optimization:
+composer install --optimize-autoloader --no-dev
+
+Laravel Mix Commands:
+npm install
+npm run dev
+npm run prod
+
+Install Dependencies:
+
+Ensure all required dependencies are installed. Run the following commands to install Vite and the Laravel Vite plugin:
+npm install --save-dev vite laravel-vite-plugin
+
+Clean npm Cache:
+Sometimes, issues can be caused by cached npm modules. Clean the npm cache and reinstall:
+npm cache clean --force
+rm -rf node_modules
+npm install
+
+Install Required Packages:
+First, make sure you have the required dependencies installed:
+npm install --save-dev vite laravel-vite-plugin
+
+Update package.json Scripts:
+Run the Production Build:
+Once you have updated your package.json, you can create a production build by running:
+npm run build
+
+Here is an example of what your package.json might look like after adding the scripts:
+{
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview"
+    },
+    "devDependencies": {
+        "vite": "^2.0.0",
+        "laravel-vite-plugin": "^0.0.14"
+    },
+    "dependencies": {
+        // Your other dependencies
+    }
+}
+
+Complete Vite Configuration:
+Ensure your vite.config.js file is properly set up as well. Here's a complete example:
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: [
+                'resources/css/app.css',
+                'resources/js/app.js',
+                // Add any additional Filament-specific assets here
+            ],
+            refresh: true,
+        }),
+    ],
+    build: {
+        outDir: 'public/build',
+        rollupOptions: {
+            output: {
+                manualChunks: undefined
+            }
+        }
+    },
+    server: {
+        host: 'localhost',
+        port: 3000,
+    },
+});

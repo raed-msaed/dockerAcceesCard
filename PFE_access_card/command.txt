@@ -1,0 +1,235 @@
+URL site : 
+Site AdminPanel => https://filamentphp.com/docs  
+Site Font => https://fonts.google.com/ 
+site logo => https://www.canva.com/design/DAGC2OCZ0Yw/X-ydfulGq4ka80XBtvyuZw/edit
+site icon => https://heroicons.com/
+
+
+$ git clone https://github.com/raed-msaed/larafilament.git
+$ cd larafilament/
+$ code .
+$ cp .env.example .env
+$ npm install
+$ composer install -- $ composer update -- $ composer install --ignore-platform-req=ext-gd
+$ php artisan key:generate
+$ php artisan storage:link  -> activated public storage (change in .env APP_URL=http://localhost to APP_URL=http://127.0.0.1:8000)
+$ php artisan migrate:fresh --seed
+
+$ php artisan serve
+$ php artisan make:model     
+$ php artisan make:model ->create model insert name and choise migrate  
+$ php artisan make:seeder CitySeeder    
+$ php artisan make:seeder CountrySeeder
+$ php artisan make:seeder StateSeeder
+$ php artisan db:seed
+
+$ php artisan make:filament-panel app -> create new panel
+$ php artisan cache:clear -> clear cache
+$ php artisan make:filament-resource Category --generate --view  => creation resource create and view
+$ composer require filament/forms:"^3.2" -W     
+$ php artisan filament:install --forms -> install form dependencies
+$ php artisan db:seed --class=CategorySeeder
+
+$git pull origin main => Update your local project from github 
+
+-----------------------------------------------librairy use in filament--------------------------------------------------------
+options(fn (Get $get): Collection => State::query() => 
+Collection from use Illuminate\Support\Collection; 
+use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
+
+change logo ( 'app\Providers\Filament\AdminPanelProvider.php' )
+            ->brandLogo(asset('images/logo.png'))
+            ->brandLogoHeight('4rem')
+            ->favicon(asset('images/logo.png'))
+
+D:\DEVLEOPEMENT\projet_Suiv_Pers\laragon\www\larafilament\config\app.php => change en to ar dashboard right to left
+
+php artisan make:filament-relation-manager CountryResource states name => create RelationShip for filament
+
+php artisan make:model => create model for Team and choise migration
+
+php artisan make:migration add_is_admin_to_users --table=users -> add column is_admin in table user 
+
+php artisan make:middleware VerifyIsAdmin => create middleware verify user is admin 
+
+composer require filament/widgets:"^3.2" -W => install composer widget
+
+php artisan filament:install --widgets => install widget package
+
+php artisan make:filament-resource CardEmployeeResource --view => creation resource for panel app
+
+npm install tailwindcss @tailwindcss/forms @tailwindcss/typography postcss postcss-nesting autoprefixer --save-dev  => tailwindcss
+npm run dev
+php artisan vendor:publish --tag=filament-config => publish package
+composer update
+php artisan filament:upgrade
+
+php artisan make:filament-widget StatsAdminOverview --stats-overview => display widget (i don't choice resource and i choice admin for panel) 
+php artisan make:filament-widget StatsAppOverview --stats-overview => widget in panel app statistique 
+php artisan make:filament-widget LatestAppCardEmployee --table =>widget table in panel app
+
+composer require flowframe/laravel-trend => Generate trends for your models. Easily generate charts or reports.
+
+$ git remote add upstream https://github.com/raed-msaed/PFE_access_card.git && $ git pull upstream new => Update local project with any changes made in Githunb
+
+$ git add . && git commit -m "Widget Chart line"  &&   git push -u origin main  => push to github.com/raed-msaed/PFE_access_card
+
+$ composer require maatwebsite/excel:^3.1.50 && php artisan make:import CardEmployeeImport --model=CardEmployee && php artisan make:export CardEmployeeExport --model=CardEmployee => import package excel filament
+
+----------------------------Mode Production---------------------------
+Update .env File:
+
+In your Laravel project's root directory, locate the .env file.
+Change the APP_ENV variable from local to production.
+
+Set Debug Mode to False (Optional):
+
+Although not strictly necessary, it's a good practice to set APP_DEBUG to false in your .env file for production mode to prevent detailed error messages from being shown to users in case of exceptions.
+
+----------------------------------------------------------Access config route--------------------------------------------------------------------------------------------------
+php artisan optimize
+php artisan vendor:publish --tag=filament-config
+composer require livewire/livewire
+php artisan vendor:publish --force --tag=livewire:assets
+
+
+-------------------------------------------------------------Relation (Cardemployee and Card)-------------------------------------------------------------------------------------------------------------
+$ php artisan make:filament-resource Category --generate --view
+$ php artisan make:filament-relation-manager CardEmployeeResource cards number_budget => relation Cardemployee and Card specifique in number_budget order
+
+$ php artisan cache:clear
+$ php artisan config:clear   # Clear configuration cache
+$ php artisan route:clear    # Clear route cache
+$ php artisan view:clear     # Clear view cache
+$ php artisan event:clear   # Clear event cache
+
+$ php artisan migrate:fresh --seed  => To drop all tables and then migrate them
+
+$ php artisan filament:clear-cached-components => ou can clear the cache at any time without rebuilding it by running
+
+$ git clone --branch new https://github.com/raed-msaed/PFE_access_card.git => clone from branch
+
+$ git clone -b main --single-branch https://github.com/username/repository.git
+
+
+--------------------------Import file-----------------------------
+
+$ php artisan make:import EmployeesImport --model=Employee 
+
+WithHeadingRow && use Importable;  => add this bibliotheque
+
+
+
+------------------------------change Icon profile &&& fond  && -----------------------------------
+
+C:\xampp\htdocs\PFE_access_card\vendor\filament\filament\resources\views\components\avatar\user.blade.php:
+<x-filament::avatar :src="asset('images/avatar.jpg')" :alt="__('خروج', ['name' => filament()->getUserName($user)])" :attributes="\Filament\Support\prepare_inherited_attributes($attributes)->class(['fi-user-avatar'])" />
+
+$ php artisan webfonts:add
+use Filament\FontProviders\LocalFontProvider;  
+public function panel(Panel $panel): Panel
+    {
+        return $panel
+            
+            ->font(
+                'Inter',
+                url: asset('css/filament/filament/fonts.css'),
+                provider: LocalFontProvider::class,
+            )
+
+
+
+-----------------------------------------------------------------------------------------------
+
+<VirtualHost *:80>
+DocumentRoot "C:\xampp\htdocs\PFE_access_card\public"
+ServerName accesscard.com
+<Directory "C:\xampp\htdocs\PFE_access_card\public">
+		Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+</Directory>
+</VirtualHost>
+
+hosts file :
+127.0.0.1 accesscard.com
+
+
+---------------------------------------------DockerFile && COMPOSER-----------------------------------------------
+$ docker-compose build
+$ docker-compose up
+$ docker-compose down
+$ docker-compose logs mysql_db
+$ docker-compose restart phpmyadmin
+$ docker ps => Identify the Container Name or ID
+
+$ docker exec -it <container_name_or_id> /bin/bash => Access the Container
+$ cd /etc/phpmyadmin/
+$ echo "<?php" > config.secret.inc.php
+ echo "\$cfg['blowfish_secret'] = 'your_blowfish_secret_key';" >> config.secret.inc.php
+$ cat config.secret.inc.php => Verify that the file was created successfully
+$ exit
+
+$ docker exec -it laravel-docker-app php artisan migrate:fresh --seed
+
+$ docker exec -it laravel-docker-app php artisan key:generate
+
+$ docker exec -it laravel-docker-app php artisan storage:link
+
+
+$ php -r "echo password_hash(random_bytes(32), PASSWORD_BCRYPT) . \"\n\";"
+$2y$10$T1TogBBjJ2IO/.Xunckc6.txP8sW.rfQ8kT2omUV0BFrpb8mcCTlq
+
+
+root@12328a9bd581:/etc/phpmyadmin# cat config.secret.inc.php
+<?php
+$cfg['blowfish_secret'] = 'your_blowfish_secret_key';
+$cfg['blowfish_secret'] = 'y0/.Xunckc6.txP8sW.rfQ8kT2omUV0BFrpb8mcCTlq';
+
+
+Rebuild Docker Image:
+
+docker build -t your-image-name .
+Run Docker Container:
+
+docker run -p 80:80 your-image-name
+
+docker ps
+
+docker build -t dockeraccesscard .
+
+docker run -p 80:80 dockeraccesscard      
+
+Initialize Git (if not already done):
+
+bash
+Copy code
+git init
+Add your files to the Git staging area:
+
+bash
+Copy code
+git add .
+Commit your changes:
+
+bash
+Copy code
+git commit -m "Initial commit"
+Create a new branch:
+
+bash
+Copy code
+git checkout -b new-branch-name
+Add your remote repository:
+If you haven't added your GitHub repository as a remote, you need to do this. Replace <USERNAME> with your GitHub username and <REPO> with the name of your repository.
+
+bash
+Copy code
+git remote add origin https://github.com/<USERNAME>/<REPO>.git
+Push your new branch to GitHub:
+
+bash
+Copy code
+git push -u origin new-branch-name
